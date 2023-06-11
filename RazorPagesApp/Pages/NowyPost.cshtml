@@ -1,0 +1,49 @@
+﻿@page
+@model RazorPagesApp.Pages.NowyPostModel
+@{
+}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+    }
+
+    h2 {
+        color: #3498db;
+    }
+
+    form {
+        margin-top: 20px;
+    }
+
+    textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        resize: vertical;
+    }
+
+    .sendbutton{
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 10px;
+    }
+
+</style>
+<body>
+    <h2>Dodaj swój własny post:</h2>
+    <form method="post">
+        <p>Autor:</p>
+        <input type="text" name="title" />
+        <br />
+        <p>Treść:</p>
+        <textarea name="content"></textarea>
+        <br />
+        <button class="sendbutton" type="submit">Dodaj post</button>
+    </form>
+</body>

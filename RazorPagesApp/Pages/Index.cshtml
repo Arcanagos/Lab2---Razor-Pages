@@ -1,0 +1,89 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Strona główna";
+}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+    }
+
+    h2 {
+        color: #3498db;
+    }
+
+    form {
+        margin-top: 20px;
+    }
+
+    textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        resize: vertical;
+    }
+
+    .sendbutton {
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 10px;
+    }
+    .post{
+        border: 2px solid #ddd;
+        border-radius: 5px;
+        padding: 20px;
+    }
+
+    .comments {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 10px;
+        margin-left:50px;
+    }
+
+</style>
+<body>
+    <h2>Artykuły</h2>
+
+    @if (Model.Articles != null)
+    {
+        foreach (var article in Model.Articles)
+        {
+            <div class="post">
+                <h3>@article.Title</h3>
+                <p>@article.Content</p>
+            </div>
+
+            if (Model.ArticleComments.ContainsKey(article.Id.ToString()))
+            {
+                <h4>Sekcja komentarzy</h4>
+
+                foreach (var comment in Model.ArticleComments[article.Id.ToString()])
+                {
+                    <div class="comments">
+                        <b>Autor: @comment.Author</b>
+                        <p>@comment.Text</p>
+                    </div>
+
+                }
+            }
+
+            <h5>Dodaj swój komentarz:</h5>
+            <form method="post">
+                <input type="hidden" name="articleId" value="@article.Id.ToString()" />
+                <p>Autor: </p>
+                <input type="text" name="author" /><br>
+                <p>Treść: </p>
+                <input type="text" name="commentText" /><br>
+                <button type="submit" class="sendbutton">Dodaj komentarz</button>
+            </form>
+            <hr />
+        }
+    }
+</body>

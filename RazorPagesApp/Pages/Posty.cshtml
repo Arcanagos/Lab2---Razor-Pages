@@ -1,0 +1,88 @@
+﻿@page
+@model PrivacyModel
+@{
+    ViewData["Title"] = "Posty";
+}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+    }
+
+    h2 {
+        color: #3498db;
+    }
+
+    form {
+        margin-top: 20px;
+    }
+
+    textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        resize: vertical;
+    }
+
+    .sendbutton {
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 10px;
+    }
+    .post {
+        border: 2px solid #ddd;
+        border-radius: 5px;
+        padding: 20px;
+    }
+
+    .comments {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 10px;
+        margin-left: 50px;
+    }
+
+</style>
+<body>
+    <h2>Posty</h2>
+
+    @if (Model.Posts != null)
+    {
+        @for (int i = Model.Posts.Count - 1; i >= 0; i--)
+        {
+            <h3>@Model.Posts[i].Title</h3>
+            <div class="post">
+                <b>Autor: @Model.Posts[i].Author</b>
+                <p>@Model.Posts[i].Content</p>
+            </div>
+
+            if (Model.Comments.ContainsKey(Model.Posts[i].Id.ToString()))
+            {
+                <h4>Sekcja komentarzy</h4>
+
+                foreach (var comment in Model.Comments[Model.Posts[i].Id.ToString()])
+                {
+                    <div class="comments">
+                        <b>Autor: @comment.Author</b>
+                        <p>@comment.Text</p>
+                    </div>
+                }
+            }
+
+            <h5>Dodaj swój komentarz:</h5>
+            <form method="post">
+                <input type="hidden" name="postId" value="@Model.Posts[i].Id.ToString()" />
+                <p>Autor:</p>
+                <input type="text" name="author" /><br>
+                <p>Treść:</p>
+                <input type="text" name="commentText" /><br>
+                <button type="submit" class="sendbutton">Dodaj komentarz</button>
+            </form>
+        }
+    }
+</body>
